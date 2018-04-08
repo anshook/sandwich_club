@@ -69,10 +69,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-        mKnownAsText.setText(toCommaSeparatedString(sandwich.getAlsoKnownAs()));
-        mOriginText.setText(sandwich.getPlaceOfOrigin());
-        mDescriptionText.setText(sandwich.getDescription());
-        mIngredientsText.setText(toCommaSeparatedString(sandwich.getIngredients()));
+
+        mKnownAsText.setText(replaceEmptyValue(toCommaSeparatedString(sandwich.getAlsoKnownAs())));
+        mOriginText.setText(replaceEmptyValue(sandwich.getPlaceOfOrigin()));
+        mDescriptionText.setText(replaceEmptyValue(sandwich.getDescription()));
+        mIngredientsText.setText(replaceEmptyValue(toCommaSeparatedString(sandwich.getIngredients())));
     }
 
     private String toCommaSeparatedString(List<String> stringList) {
@@ -86,4 +87,13 @@ public class DetailActivity extends AppCompatActivity {
 
         return sb.toString();
     }
+
+    private String replaceEmptyValue(String value)
+    {
+        if(value==null || value.trim().equals(""))
+            return getResources().getString(R.string.blank_sandwitch_data);
+
+        return value;
+    }
+
 }
